@@ -491,53 +491,6 @@ async function generarPDF(m) {
   doc.save(`Checklist_Mantenimiento_${m.numeroSerie}.pdf`);
 }
 
-const cronogramaConfig = {
-  "ADMINISTRACION Y FINANZAS": {
-    color: "#e53935",
-    rangos: {
-      1: [[18, 20]],
-      7: [[18, 20]],
-    },
-  },
-
-  "VARIAS BASES FORANEAS": {
-    color: "#00bcd4",
-    rangos: {
-      2: [[12, 16]],
-      8: [[12, 16]],
-    },
-  },
-
-  "BASE VILLAHERMOSA": {
-    color: "#1565c0",
-    rangos: {
-      3: [[8, 11]],
-      9: [[22, 27]],
-    },
-  },
-
-  "CAPACITACIÓN Y CALIDAD": {
-    color: "#7cb342",
-    rangos: {
-      4: [[2, 8]],
-      10: [[25, 27]],
-    },
-  },
-
-  "BASE VERACRUZ": {
-    color: "#0288d1",
-    rangos: {
-      5: [[5, 8]],
-      11: [[20, 24]],
-    },
-  },
-
-  // 👉 aquí agregas TODAS las áreas tal cual tu Excel
-};
-
-function diasMes(anio, mes) {
-  return new Date(anio, mes, 0).getDate();
-}
 
 const btnCronograma = document.getElementById("btnCronograma");
 const cronogramaSection = document.getElementById("cronogramaExactoSection");
@@ -563,85 +516,6 @@ btnCronograma.addEventListener("click", () => {
   renderCronogramaExacto();
 });
 
-function renderCronogramaExacto() {
-  const anio = 2026;
-
-  const meses = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ];
-
-  const thead = document.getElementById("headCronogramaExacto");
-  const tbody = document.getElementById("bodyCronogramaExacto");
-
-  thead.innerHTML = "";
-  tbody.innerHTML = "";
-
-  /* ===== ENCABEZADO ===== */
-  const filaHead = document.createElement("tr");
-  filaHead.innerHTML = `<th>Área</th><th>Mes / Día</th>`;
-
-  for (let d = 1; d <= 31; d++) filaHead.innerHTML += `<th>${d}</th>`;
-  thead.appendChild(filaHead);
-
-  /* ===== CUERPO ===== */
-  meses.forEach((mesNombre, index) => {
-    const mes = index + 1;
-    const tr = document.createElement("tr");
-
-    /* --- columna áreas (visual) --- */
-    let areasHTML = "";
-    Object.entries(cronogramaConfig).forEach(([area, cfg]) => {
-      areasHTML += `
-        <div class="area-tag" style="background:${cfg.color}">
-          ${area}
-        </div>`;
-    });
-
-    tr.innerHTML = `
-      <td class="areas-col">${areasHTML}</td>
-      <td class="mes-col">${mesNombre}</td>
-    `;
-
-    const totalDias = diasMes(anio, mes);
-
-    for (let d = 1; d <= 31; d++) {
-      if (d > totalDias) {
-        tr.innerHTML += `<td class="asterisco">*</td>`;
-        continue;
-      }
-
-      let color = "";
-      let title = "";
-
-      Object.entries(cronogramaConfig).forEach(([area, cfg]) => {
-        const rangos = cfg.rangos[mes] || [];
-        if (rangos.some(([ini, fin]) => d >= ini && d <= fin)) {
-          color = cfg.color;
-          title = area;
-        }
-      });
-
-      tr.innerHTML += `
-        <td style="${color ? `background:${color}` : ""}"
-            title="${title}">
-          ${d}
-        </td>`;
-    }
-
-    tbody.appendChild(tr);
-  });
-}
 
 function generarExcelMensual(mes, anio, programados = 8) {
   const realizadosMes = mantenimientos.filter((m) => {
@@ -720,3 +594,5 @@ function generarExcelMensual(mes, anio, programados = 8) {
 
   XLSX.writeFile(wb, `MTTO_${mesesTexto[mes - 1]}_${anio}.xlsx`);
 }
+
+

@@ -13,10 +13,9 @@
   <body>
     <header>
       <h1>Control de Mantenimientos</h1>
-      <nav class="container-class">
+      <nav>
         <button id="btnEquipos" class="activo">Equipos</button>
         <button id="btnMantenimientos">Mantenimientos</button>
-        <button id="btnCronograma">Cronograma</button>
       </nav>
     </header>
 
@@ -267,11 +266,21 @@
 
           <div>
             <label>Foto antes:</label>
-            <input style="width: 95%;" type="file" id="fotoAntes" accept="image/*" />
+            <input
+              style="width: 95%"
+              type="file"
+              id="fotoAntes"
+              accept="image/*"
+            />
           </div>
           <div>
             <label>Foto después:</label>
-            <input style="width: 95%;" type="file" id="fotoDespues" accept="image/*" />
+            <input
+              style="width: 95%"
+              type="file"
+              id="fotoDespues"
+              accept="image/*"
+            />
           </div>
 
           <!-- Firmas -->
@@ -293,7 +302,8 @@
         </form>
         <div class="prev">
           <h2>Historial de Mantenimientos</h2>
-          <button class="ex"
+          <button
+            class="ex"
             onclick="generarExcelMensual( new Date().getMonth()+1, new Date().getFullYear(), 8 )"
           >
             📊 Generar Excel del Mes
@@ -328,25 +338,6 @@
           </table>
         </div>
       </section>
-      <!-- Cronograma -->
-      <section id="cronogramaExactoSection" class="oculto">
-        <div class="cronograma-header">
-          <h1>
-            Cronograma de Mantenimientos de Equipos de Cómputo -
-            <span id="anioCronograma"></span>
-          </h1>
-        </div>
-
-        <div class="tabla-wrapper">
-          <table id="cronogramaExacto">
-            <thead id="headCronogramaExacto"></thead>
-            <tbody>
-              <tr id="filaAreas"></tr>
-            </tbody>
-            <tbody id="bodyCronogramaExacto"></tbody>
-          </table>
-        </div>
-      </section>
     </main>
 
     <script src="script.js"></script>
@@ -377,4 +368,3 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   </body>
 </html>
-
