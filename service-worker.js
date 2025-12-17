@@ -29,7 +29,7 @@ self.addEventListener("sync", event => {
     });
   }
 });
-=======
+
 self.addEventListener("install", event => {
   console.log("Service Worker instalado.");
   event.waitUntil(
@@ -60,4 +60,3 @@ self.addEventListener("sync", event => {
     });
   }
 });
->>>>>>> 5eb71953d04775e8683e66a3bbe7be8d8803d88d

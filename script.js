@@ -720,7 +720,7 @@ function generarExcelMensual(mes, anio, programados = 8) {
 
   XLSX.writeFile(wb, `MTTO_${mesesTexto[mes - 1]}_${anio}.xlsx`);
 }
-=======
+
 document.addEventListener("DOMContentLoaded", () => {
   // Elementos DOM
   const formEquipo = document.getElementById("formEquipo");
